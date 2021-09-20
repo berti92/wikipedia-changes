@@ -213,7 +213,7 @@
                 }
             });
             </script>
-        <?php } else { ?>
+        <?php } else if(empty($_GET["wiki_url"]) == false) { ?>
             <h4 style="color: red;">Please note that only german and english articles are possible, your url must start with "https://de.wikipedia.org" or "https://en.wikipedia.org".</h4>
         <?php } ?>
         <footer>
