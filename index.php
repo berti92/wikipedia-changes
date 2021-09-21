@@ -8,6 +8,10 @@
     $per_year_month_values = array();
     $author_labels = array();
     $author_values = array();
+    $author_hash = array();
+    $paragraph_labels = array();
+    $paragraph_values = array();
+    $paragraph_hash = array();
     function startsWith ($string, $startString)
     {
         $len = strlen($startString);
@@ -67,13 +71,28 @@
         }
         foreach ($xpath->query("//a[@class='mw-userlink']") as $element) {
             $textauthor = $element->textContent;
-            $key = array_search($textauthor, $author_labels);
-            if($key == false) {
-                array_push($author_labels, $textauthor);
-                array_push($author_values, 1);
+            if(array_key_exists($textauthor, $author_hash)) {
+                $author_hash[$textauthor] = $author_hash[$textauthor] + 1;
             } else {
-                $author_values[$key] = $author_values[$key] + 1;
+                $author_hash[$textauthor] = 1;
             }
+            arsort($author_hash);
+            $author_labels = array_keys($author_hash);
+            $author_values = array_values($author_hash);
+        }
+        foreach ($xpath->query("//span[@class='autocomment']") as $element) {
+            $textparagraph = $element->textContent;
+            $textparagraph = str_replace(':', '', $textparagraph);
+            $textparagraph = str_replace('→‎', '', $textparagraph);
+            $textparagraph = trim($textparagraph);
+            if(array_key_exists($textparagraph, $paragraph_hash)) {
+                $paragraph_hash[$textparagraph] = $paragraph_hash[$textparagraph] + 1;
+            } else {
+                $paragraph_hash[$textparagraph] = 1;
+            }
+            arsort($paragraph_hash);
+            $paragraph_labels = array_keys($paragraph_hash);
+            $paragraph_values = array_values($paragraph_hash);
         }
     }
 ?>
@@ -199,6 +218,35 @@
                         data: <?php echo(json_encode($author_values)) ?>,
                         borderColor: 'rgb(54, 162, 235)',
                         backgroundColor: 'rgb(54, 162, 235)'
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    elements: {
+                        bar: {
+                            borderWidth: 2,
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+            </script>
+            <h3>Per paragraph</h3>
+            <div class="chart-container-hor" style="height: <?php echo(100 + (count($paragraph_labels) * 30)) ?>px;">
+                <canvas id="changes_per_paragraph"></canvas>
+            </div>
+            <script>
+            var ctx4 = document.getElementById('changes_per_paragraph').getContext('2d');
+            var myChart4 = new Chart(ctx4, {
+                type: 'bar',
+                data: {
+                    labels: <?php echo(json_encode($paragraph_labels)) ?>,
+                    datasets: [{
+                        label: '# of changes',
+                        data: <?php echo(json_encode($paragraph_values)) ?>,
+                        borderColor: 'rgb(153, 102, 255)',
+                        backgroundColor: 'rgb(153, 102, 255)'
                     }]
                 },
                 options: {
