@@ -115,26 +115,6 @@
             }
         </style>
         <title>Analyze the number of changes from a wikipedia article <?php echo(($articleName != "" ? " - ".$articleName : "")) ?></title>
-
-        <!-- Cookie Consent by https://www.FreePrivacyPolicy.com -->
-        <script type="text/javascript" src="//www.freeprivacypolicy.com/public/cookie-consent/4.0.0/cookie-consent.js" charset="UTF-8"></script>
-        <script type="text/javascript" charset="UTF-8">
-        document.addEventListener('DOMContentLoaded', function () {
-        cookieconsent.run({"notice_banner_type":"headline","consent_type":"express","palette":"light","language":"en","page_load_consent_levels":["strictly-necessary"],"notice_banner_reject_button_hide":false,"preferences_center_close_button_hide":false,"website_name":"wikipedia-changes.com","website_privacy_policy_url":"https://www.devbert.de/index.php/en/privacy-notice/"});
-        });
-        </script>
-
-        <noscript>Cookie Consent by <a href="https://www.FreePrivacyPolicy.com/free-cookie-consent/" rel="nofollow noopener">FreePrivacyPolicy.com</a></noscript>
-        <!-- End Cookie Consent -->
-
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script type="text/plain" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-K0V5SYERGN"></script>
-        <script type="text/plain" cookie-consent="tracking">
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-K0V5SYERGN');
-        </script>
     </head>
     <body>
         <h1>Show changes from a wikipedia article</h1>
